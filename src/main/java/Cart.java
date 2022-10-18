@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class Cart implements ICart {
 
-    private List<Integer> quantityList = new ArrayList<>();
     private List<Product> products = new ArrayList<>();
     private static Cart cart = null;
     private static int newQuantity;

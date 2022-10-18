@@ -4,6 +4,8 @@ public class Sale implements ISaleType, ISaleSpecial{ // Interface segregation p
                 .setDiscount(discount)
                 .build();
     }
+
+    // Dependency inversion principle
     public void addSpecialOffer() {
         //TODO
     }
