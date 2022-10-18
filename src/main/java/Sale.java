@@ -1,4 +1,4 @@
-public class Sale implements ISaleType, ISaleSpecial{
+public class Sale implements ISaleType, ISaleSpecial{ // Interface segregation principle
     public void addSaleByType(int id, Discount discount) {
         Product withSale = new ProductBuilder()
                 .setDiscount(discount)

@@ -83,11 +83,16 @@ public class Product {
     }
 
     public String toString() {
-        Cart cart = Cart.get();
-        return productName + ", " +
-                price + "руб.," +
-                quantity + " шт." +
-                finalPrice;
+        StringBuilder sb = new StringBuilder();
+        sb.append(productName + ", " +
+                price + "руб.");
+        if(quantity != 0){
+            sb.append(", " + quantity + "шт. " );
+        } else if (finalPrice != 0) {
+            sb.append("Цена со скидкой: " + finalPrice);
+        }
+
+        return sb.toString();
     }
 
     @Override

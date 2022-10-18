@@ -1,4 +1,5 @@
 public enum ProductType {
+    // Single-responsibility principle
 
     MILK ("Молоко, сыр"),
     BREAD ("Хлебобулочные изделия"),
@@ -15,10 +16,6 @@ public enum ProductType {
 
      ProductType (String title) {
         this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     @Override

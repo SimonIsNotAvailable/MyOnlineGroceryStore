@@ -6,10 +6,10 @@ import java.util.Scanner;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.*;
 
-// Пользователь запрашивает список каталог,
+// Пользователь запрашивает каталог,
 // в каталоге выбирает раздел по типу продукта,
-// выбирает и видит информацию о продукте,
-// добавляет в корзину или идёт обратно, видит расчет, может удалить из корзины,
+// видит информацию о продукте и выбирает,
+// добавляет в корзину нужное количество товара или идёт обратно, видит расчет, может удалить из корзины
 // узнать общую сумму скидки, стоимость доставки.
 
 public class Main {
@@ -21,7 +21,7 @@ public class Main {
 
         String[] columnMapping = {"id", "productName", "price", "productType", "rating"};
         String fileName = "src/main/resources/data.csv";
-        products = parseCSV(columnMapping, fileName); //Create products from the file
+        products = parseCSV(columnMapping, fileName);
 
         while (true) {
             System.out.println("Добро пожаловать в магазин продуктов, выберите действие: \n" +
@@ -74,10 +74,13 @@ public class Main {
                 System.out.println("Выбери товар, а затем количество: \n" +
                         "Для возврата в предыдущее меню выбери '0'");
                 List<Product> list = filterProductsByType(type[input - 1]);
-                Product[] chosenProduct = new Product[list.size()];
+                Product[] chosenProduct = new Product[list.size()]; //Magic Numbers Principle
                 list.toArray(chosenProduct);
                 counter = 1;
                 int chosenProductNumber = scanner.nextInt();
+                if (chosenProductNumber == 0) {
+                    break;
+                }
                 int quantity = scanner.nextInt();
                 cart.addToCart(chosenProduct[chosenProductNumber - 1], quantity);
             }
