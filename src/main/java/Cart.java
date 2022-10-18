@@ -1,20 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 import java.util.Scanner;
 
 
 public class Cart implements ICart {
 
-    //Open Closed Principle - имплементируем интерфейс ICart и добавляем
-    // классу функциональности, не меняя его код
-    private int quantity;
     private List<Integer> quantityList = new ArrayList<>();
     private List<Product> products = new ArrayList<>();
-    private Delivery delivery;
     private static Cart cart = null;
     private static int newQuantity;
-    private Product fromCart;
     private int totalPrice;
 
     public Cart() {
@@ -30,23 +24,13 @@ public class Cart implements ICart {
     @Override
     public void addToCart(Product product, int addQuantity) {
 
-        Iterator<Product> productsIterator = products.iterator(); //может быть .contain попробовать ?
-
-        while (productsIterator.hasNext()) {
-            fromCart = productsIterator.next();
-            if (fromCart.equals(product)) {
-                newQuantity = fromCart.getQuantity() + addQuantity;
-                productsIterator.remove();
-            }
-        }
-        if (newQuantity == 0) {
+        if (products.contains(product)){
+            newQuantity = product.getQuantity() + addQuantity;
+            product.setQuantity(newQuantity);
+            newQuantity = 0;
+        } else {
             product.setQuantity(addQuantity);
             products.add(product);
-        } else if (fromCart != null) {
-            product.setQuantity(newQuantity);
-            products.add(product);
-            fromCart = null;
-            newQuantity = 0;
         }
     }
 
@@ -58,7 +42,7 @@ public class Cart implements ICart {
     public void showCart() {
         int number = 1;
         printStripe();
-        for(Product product : products) {
+        for (Product product : products) {
             System.out.println(number++ + ". " + product);
         }
         calculateTotalPrice();
@@ -67,26 +51,23 @@ public class Cart implements ICart {
         System.out.println("Для удаления из корзины выбери позицию или 0 для возврата в главное меню");
         Scanner cartScanner = new Scanner(System.in);
         int cartInput = cartScanner.nextInt();
-        if (cartInput == 0){
+        if (cartInput == 0) {
             return;
-        } else if ( cartInput<0 || cartInput > products.size()) {
+        } else if (cartInput < 0 || cartInput > products.size()) {
             throw new IndexOutOfBoundsException("Неверный ввод");
         } else {
             deleteFromCart(cartInput);
         }
     }
 
-    public void calculateTotalPrice(){
+    public void calculateTotalPrice() {
         totalPrice = 0;
         for (Product product : products) {
-            totalPrice = totalPrice + (product.getQuantity()*product.getPrice());
+            totalPrice = totalPrice + (product.getQuantity() * product.getPrice());
         }
     }
+
     public void printStripe() {
         System.out.println("---------------------------");  // принцип DRY
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 }

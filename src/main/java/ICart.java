@@ -1,5 +1,5 @@
 public interface ICart {
-    public void addToCart(Product product, int quantity);
-    public void deleteFromCart(int cartPosition);
-    public void showCart();
+     void addToCart(Product product, int quantity);
+     void deleteFromCart(int cartPosition);
+     void showCart();
 }

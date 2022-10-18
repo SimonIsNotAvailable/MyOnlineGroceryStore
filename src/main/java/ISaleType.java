@@ -1,4 +1,4 @@
 public interface ISaleType {
-    public void addSaleByType(int id, Discount discount);
-    public void removeSaleByType();
+     void addSaleByType(int id, Discount discount);
+     void removeSaleByType();
 }
